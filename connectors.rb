@@ -5,7 +5,10 @@ require 'json'
 require 'awesome_print'
 require "google/api_client"
 require "google_drive"
-
+configure :production do
+    require 'newrelic_rpm'
+  end
+  
 set :bind, '0.0.0.0'
 module WebhookConnector
   class GoogleSheets < Sinatra::Base
