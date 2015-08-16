@@ -20,6 +20,6 @@
 
 # you can override concurrency based on environment
 production:
-  :concurrency: 10
+  :concurrency: 1
 staging:
   :concurrency: 10
