@@ -1,6 +1,6 @@
 class GoogleSheetsWorker
 	include Sidekiq::Worker
-	$redis = Redis.new
+	# $redis = Redis.new
 
 	def perform(client_id, client_secret, refresh_token, label, spreadsheet_title, worksheet_title, data)
     	# $redis.lpush("google_sheets_data", store_data(credentials, spreadsheet_title, data))
