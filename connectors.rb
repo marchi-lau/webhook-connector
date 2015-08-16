@@ -2,20 +2,20 @@
 
 require 'sinatra'
 require "sinatra/cookies"
-
 require 'json'
 require 'awesome_print'
 require "google/api_client"
 require "google_drive"
 require 'redis'
 require 'sidekiq'
+require 'sidekiq/web'
+Dir.glob('./{models,helpers,controllers,workers}/*.rb').each { |file| require file }
 
 configure :production do
     require 'newrelic_rpm'
     uri = URI.parse(ENV["REDISCLOUD_URL"])
     $redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 end
-Dir.glob('./{models,helpers,controllers,workers}/*.rb').each { |file| require file }
 
 set :bind, '0.0.0.0'
 
