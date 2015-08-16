@@ -7,7 +7,8 @@ require "google/api_client"
 require "google_drive"
 
 set :bind, '0.0.0.0'
-
+module WebhookConnector
+  class GoogleSheets < Sinatra::Base
 post "/google-sheets/rows/create/*:*:*" do |label, spreadsheet_title, worksheet_title|
   request.body.rewind  # in case someone already read it
   row = JSON.parse(request.body.read)
@@ -34,3 +35,5 @@ post "/google-sheets/rows/create/*:*:*" do |label, spreadsheet_title, worksheet_
     #     puts "Retrying..."
     #     retry
  end
+end
+end
