@@ -1,5 +1,3 @@
-worker: bundle exec sidekiq -C config/sidekiq.yml
-
 require './connectors'
 require 'sidekiq'
 require 'sidekiq/web'
