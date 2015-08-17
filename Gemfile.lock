@@ -85,6 +85,8 @@ GEM
       json (~> 1.0)
       redis (~> 3.2, >= 3.2.1)
       redis-namespace (~> 1.5, >= 1.5.2)
+    sidekiq-failures (0.4.5)
+      sidekiq (>= 2.16.0)
     signet (0.6.1)
       addressable (~> 2.3)
       extlib (~> 0.9)
@@ -120,5 +122,9 @@ DEPENDENCIES
   newrelic_rpm
   puma
   sidekiq
+  sidekiq-failures
   sinatra
   sinatra-contrib
+
+BUNDLED WITH
+   1.10.6
