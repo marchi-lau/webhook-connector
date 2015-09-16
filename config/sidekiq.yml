@@ -4,7 +4,7 @@
 # pick it up automatically.
 ---
 :verbose: false
-:concurrency: 10
+:concurrency: 4
 
 # Set timeout to 8 on Heroku, longer if you manage your own systems.
 :timeout: 30
@@ -23,3 +23,5 @@ production:
   :concurrency: 2
 staging:
   :concurrency: 10
+  development:
+  :concurrency: 4
