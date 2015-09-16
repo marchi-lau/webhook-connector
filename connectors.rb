@@ -46,14 +46,15 @@ end
  class PushNotifier < Sinatra::Base
           helpers Sinatra::Cookies
  post "/" do
+    ap request
     endpoint = cookies[:endpoint]
     keys = []
     params.each do |p|
         keys << {"name" => p[0], "content" => p[1]}
     end
-    ap keys
+    keys
 
-    ap payload = {
+    payload = {
     "messageRequest": {
         "appId": "com.cathaypacific.IceMobile", #rdns # For SIT/UAT. Production we have 2 app Id
         "global": {},
