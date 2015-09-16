@@ -28,6 +28,7 @@ set :bind, '0.0.0.0'
 
 module WebhookConnector
   include HTTParty
+  default_options.update(verify: false)
 
   class GoogleSheets < Sinatra::Base
   	  helpers Sinatra::Cookies
@@ -90,7 +91,7 @@ end
     }
 }
     responese = HTTParty.post(endpoint, :body => payload.to_json, :headers => { 'Content-Type' => 'application/json'} , timeout: 180, :verify => false)
-    ap response
+
     #app_id
     #message
     #landing_page
@@ -106,7 +107,7 @@ end
     #cabin
     #child
     #infant
-    return "200"
+    return response.body
   end
 end
 end
