@@ -46,7 +46,6 @@ end
  class PushNotifier < Sinatra::Base
           helpers Sinatra::Cookies
  post "/" do
-    ap request
     endpoint = cookies[:endpoint]
     keys = []
     params.each do |p|
@@ -90,8 +89,8 @@ end
         }
     }
 }
-HTTParty.post(endpoint, :body => payload.to_json, :headers => { 'Content-Type' => 'application/json'} , timeout: 180)
-
+    responese = HTTParty.post(endpoint, :body => payload.to_json, :headers => { 'Content-Type' => 'application/json'} , timeout: 180, :verify => false)
+    ap response
     #app_id
     #message
     #landing_page
