@@ -48,11 +48,8 @@ end
           helpers Sinatra::Cookies
  post "/" do
     endpoint = cookies[:endpoint]
-    keys = []
-    params.each do |p|
-        keys << {"name" => p[0], "content" => p[1]}
-    end
-    keys
+    ios_keys =     params.map {|p| {"name" => p[0], "content" => p[1]}}
+    android_keys = params.map {|p| {"name" => p[0], "value" => p[1]}}
 
     payload = {
     "messageRequest": {
@@ -78,11 +75,11 @@ end
                     "iphone": {
                         "badge": 0,
                         "customData": {
-                            "key": keys
+                            "key": ios_keys
                         }
                     },
                     "android": {
-                        "key": keys
+                        "key": android_keys
                     }
                 },
                 "type": "PUSH" #static
@@ -90,23 +87,11 @@ end
         }
     }
 }
-    responese = HTTParty.post(endpoint, :body => payload.to_json, :headers => { 'Content-Type' => 'application/json'} , timeout: 180, :verify => false)
 
-    #app_id
-    #message
-    #landing_page
-    #action
-    #trip_type
-    #origin
-    #destination
-    #date_departure
-    #date_return
-    #adult
-    #child
-    #infant
-    #cabin
-    #child
-    #infant
+    responese = HTTParty.post(endpoint, :body => payload.to_json, :headers => { 'Content-Type' => 'application/json'} , timeout: 180, :verify => false)
+    puts "================================================================"
+    ap payload.to_json
+    puts "================================================================"
     return response.body
   end
 end
