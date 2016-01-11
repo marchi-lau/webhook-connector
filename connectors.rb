@@ -88,8 +88,8 @@ end
         }
     }
 }
-
-    responese = HTTParty.post(endpoint, :body => payload.to_json, :headers => { 'Content-Type' => 'application/json'} , timeout: 180, :verify => false)
+    auth = {username: "admin", password: 'r2!mV%3_(?9bp\2~&6}SS.tv'}
+    responese = HTTParty.post(endpoint, :body => payload.to_json, :headers => { 'Content-Type' => 'application/json'} ,  :basic_auth => auth)
     puts "================================================================"
     ap payload.to_json
     puts "================================================================"
