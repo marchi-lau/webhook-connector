@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 require 'sinatra'
 require "sinatra/cookies"
 require 'json'
@@ -10,9 +9,9 @@ require 'redis'
 require 'sidekiq'
 require 'sidekiq/web'
 require 'httparty'
-Dir.glob('./{models,helpers,controllers,workers}/*.rb').each { |file| require file }
+Dir.glob('./{workers}/*.rb').each { |file| require file }
 Sidekiq.configure_server do |config|
-  config.redis = { url: "redis:#rediscloud:gmXyc9y2Iy2H8u48@pub-redis-11324.us-east-1-3.6.ec2.redislabs.com:11324" }
+  config.redis = { url: "redis://rediscloud:gmXyc9y2Iy2H8u48@pub-redis-11324.us-east-1-3.6.ec2.redislabs.com:11324" }
 end
 enable :sessions
 
@@ -48,12 +47,14 @@ end
           helpers Sinatra::Cookies
  post "/" do
     endpoint = cookies[:endpoint]
+    rnds = params[:rdns]
+    ks_id = params[:ks_id]
     ios_keys =     params.map {|p| {"name" => p[0], "content" => p[1]}}
     android_keys = params.map {|p| {"name" => p[0], "value" => p[1]}}
 
     payload = {
     "messageRequest": {
-        "appId": "com.cathaypacific.IceMobile", #rdns # For SIT/UAT. Production we have 2 app Id
+        "appId": rnds, #rdns
         "global": {},
         "messages": {
             "message": {
@@ -67,8 +68,8 @@ end
                 "expiryTimestamp": 0, #static
                 "subscribers": {
                     "subscriber": [{
-                       "allActive": "true" # Send to all users, will sent out another sample for specific user later
-                          # "ksid": "1679938113096687966" #push_subscription_id
+                       # "allActive": "true" # Send to all users, will sent out another sample for specific user later
+                          "ksid": ks_id, #push_subscription_id
                     }]
                 },
                 "platformSpecificProps": {
